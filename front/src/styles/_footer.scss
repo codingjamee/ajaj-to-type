@@ -1,0 +1,29 @@
+.footer {
+  height: 80px;
+  font-size: $small-font-size;
+  display: flex;
+  &__wrapper {
+    width: 90%;
+    margin: 0 auto;
+    justify-content: space-between;
+    align-items: center;
+    display: flex;
+    & p {
+      color: $gray-footer;
+      font-size: $ssmall-font-size;
+    }
+  }
+}
+
+@include mobile {
+  .footer {
+    padding: 30px 0;
+    &__wrapper {
+      flex-direction: column;
+      justify-content: space-around;
+      & p {
+        font-weight: 100;
+      }
+    }
+  }
+}
