@@ -1,6 +1,10 @@
 import { createSlice } from "@reduxjs/toolkit";
 
-const initialState = { userInfo: {} };
+interface LoginState {
+  userInfo: Object;
+}
+
+const initialState = { userInfo: {} } as LoginState;
 
 const userLoginSlice = createSlice({
   name: "userLogin",

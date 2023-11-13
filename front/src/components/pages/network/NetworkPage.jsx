@@ -2,7 +2,7 @@ import React, { useEffect } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import { Container, Row } from "react-bootstrap";
 import UserCard from "../users/user/UserCard";
-import api from "../../../utils/axiosConfig";
+import api from "@utils/axiosConfig";
 import { useSelector } from "react-redux";
 
 const NetworkPage = ({ users, setUsers }) => {

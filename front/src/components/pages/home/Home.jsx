@@ -1,9 +1,9 @@
 import { useEffect, useRef } from "react";
 import Card from "react-bootstrap/Card";
 import { Image } from "react-bootstrap";
-import ButtonCommon from "../../common/ButtonCommon";
+import ButtonCommon from "@components/common/ButtonCommon";
 import { useNavigate } from "react-router-dom";
-import defaultImg from "../../common/header/logo0.png";
+import defaultImg from "@assets/logo0.png";
 import { useSelector } from "react-redux";
 
 const Home = () => {

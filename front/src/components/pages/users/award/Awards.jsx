@@ -1,15 +1,15 @@
 import React, { Suspense, useContext, useEffect, useState } from "react";
 import { Card } from "react-bootstrap";
-import ButtonCommon from "../../../common/ButtonCommon";
-import FormWrapper from "../../../common/FormWrapper";
+import ButtonCommon from "@components/common/ButtonCommon";
+import FormWrapper from "@components/common/FormWrapper";
 import { PortfolioOwnerDataContext } from "../Portfolio";
-import { awardsCommonFormProps } from "../../../../utils/formListCommonProps";
+import { awardsCommonFormProps } from "@utils/formListCommonProps";
 import Award from "./Award";
 import { useMemo } from "react";
 import { useSelector } from "react-redux";
-import LoadingLayer from "../../../../UI/LoadingLayer";
-import useInput from "../../../../hooks/useInput";
-import useApi from "../../../../hooks/useApi";
+import LoadingLayer from "@UI/LoadingLayer";
+import useInput from "@hooks/useInput";
+import useApi from "@hooks/useApi";
 
 const initialValue = {
   awardName: "",

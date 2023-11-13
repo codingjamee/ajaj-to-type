@@ -8,7 +8,7 @@ import { Provider } from "react-redux";
 import { BrowserRouter } from "react-router-dom";
 import { ErrorBoundary } from "react-error-boundary";
 import ButtonCommon from "./components/common/ButtonCommon";
-import img from "./components/common/header/logo0.png";
+import img from "./assets/logo0.png";
 
 const BtnSetting = {
   variant: "primary",

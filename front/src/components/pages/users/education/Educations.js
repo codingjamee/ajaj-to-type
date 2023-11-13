@@ -1,15 +1,15 @@
 import React, { useContext, useEffect, useState } from "react";
 import { Card } from "react-bootstrap";
-import ButtonCommon from "../../../common/ButtonCommon";
-import FormWrapper from "../../../common/FormWrapper";
+import ButtonCommon from "@components/common/ButtonCommon";
+import FormWrapper from "@components/common/FormWrapper";
 import Education from "./Education";
 import { PortfolioOwnerDataContext } from "../Portfolio";
-import { educationsCommonFormProps } from "../../../../utils/formListCommonProps";
+import { educationsCommonFormProps } from "@utils/formListCommonProps";
 import { useMemo } from "react";
 import { useSelector } from "react-redux";
-import useInput from "../../../../hooks/useInput";
-import useApi from "../../../../hooks/useApi";
-import LoadingLayer from "../../../../UI/LoadingLayer";
+import useInput from "@hooks/useInput";
+import useApi from "@hooks/useApi";
+import LoadingLayer from "@UI/LoadingLayer";
 
 const initialValue = {
   schoolName: "",

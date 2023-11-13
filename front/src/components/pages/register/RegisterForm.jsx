@@ -1,8 +1,8 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Container, Col, Row, Form, Button } from "react-bootstrap";
-import api from "../../../utils/axiosConfig";
-import { validateEmail, validatePassword } from "../../../utils/validate";
+import api from "@utils/axiosConfig";
+import { validateEmail, validatePassword } from "@utils/validate";
 
 function RegisterForm() {
   const navigate = useNavigate();

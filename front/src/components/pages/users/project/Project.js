@@ -1,14 +1,13 @@
 import React, { useEffect, useState } from "react";
 import { Card, Col, Form } from "react-bootstrap";
-import ButtonCommon from "../../../common/ButtonCommon";
-import FormWrapper from "../../../common/FormWrapper";
-import { projectsCommonFormProps } from "../../../../utils/formListCommonProps";
-import api from "../../../../utils/axiosConfig";
+import ButtonCommon from "@components/common/ButtonCommon";
+import FormWrapper from "@components/common/FormWrapper";
+import { projectsCommonFormProps } from "@utils/formListCommonProps";
 import { useMemo } from "react";
 import { useSelector } from "react-redux";
-import useApi from "../../../../hooks/useApi";
-import useInput from "../../../../hooks/useInput";
-import LoadingLayer from "../../../../UI/LoadingLayer";
+import useApi from "@hooks/useApi";
+import useInput from "@hooks/useInput";
+import LoadingLayer from "@UI/LoadingLayer";
 
 const initialValue = {
   projectName: "",

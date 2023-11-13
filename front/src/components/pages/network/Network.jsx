@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Container } from "react-bootstrap";
-import api from "../../../utils/axiosConfig";
+import api from "@utils/axiosConfig";
 import { useSelector } from "react-redux";
 import NetworkPage from "./NetworkPage";
 import PagiNation from "./PagiNation";

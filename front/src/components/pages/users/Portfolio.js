@@ -7,7 +7,7 @@ import Educations from "./education/Educations";
 import Certifications from "./certificate/Certificates";
 import Awards from "./award/Awards";
 import Projects from "./project/Projects";
-import api from "../../../utils/axiosConfig";
+import api from "@utils/axiosConfig";
 import { useSelector } from "react-redux";
 
 export const PortfolioOwnerDataContext = createContext({});

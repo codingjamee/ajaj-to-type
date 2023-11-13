@@ -2,12 +2,12 @@ import React from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 import { Nav, Navbar } from "react-bootstrap";
 import "bootstrap/dist/css/bootstrap.min.css";
-import "../../../UI/design.css";
-import logo from "./logo0.png";
-import api from "../../../utils/axiosConfig";
+import "@UI/design.css";
+import logo from "@assets/logo0.png";
+import api from "@utils/axiosConfig";
 import { useMemo } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { userLoginActions } from "../../../store/userLogin";
+import { userLoginActions } from "@store/userLogin";
 
 function Navigation() {
   const navigate = useNavigate();

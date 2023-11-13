@@ -1,15 +1,21 @@
 import styles from "./LoadingLayer.module.css";
 import { useDispatch } from "react-redux";
-import { loadingActions } from "../store/loading";
+import { loadingActions } from "../store/loading.js";
 import ButtonCommon from "../components/common/ButtonCommon";
 import LoadingIndicator from "./LoadingIndicator";
 import React, { useEffect, useRef } from "react";
-const LoadingLayer = React.memo((props) => {
-  const ButtonRef = useRef();
+
+interface LoadingLayerProps {
+  message: string;
+  children?: string;
+}
+
+const LoadingLayer: React.FC<LoadingLayerProps> = React.memo((props) => {
+  const ButtonRef = useRef<HTMLButtonElement>(null);
   const dispatch = useDispatch();
 
   useEffect(() => {
-    ButtonRef.current.focus();
+    ButtonRef.current?.focus();
   }, []);
 
   const onBtnClickHandler = () => {
@@ -18,7 +24,7 @@ const LoadingLayer = React.memo((props) => {
   return (
     <>
       <div className={styles.backdrop}>
-        <div className="error-modal__actions">
+        <div className={styles["error-modal__actions"]}>
           <p>{props.children}</p>
           <LoadingIndicator />
           <ButtonCommon

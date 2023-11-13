@@ -6,19 +6,20 @@ import Login from "./components/pages/login/Login";
 import Network from "./components/pages/network/Network";
 import RegisterForm from "./components/pages/register/RegisterForm";
 import Portfolio from "./components/pages/users/Portfolio";
-import { loadingActions } from "./store/loading";
+import { loadingActions } from "./store/loading.jsx";
 import { userLoginActions } from "./store/userLogin";
 import { useDispatch, useSelector } from "react-redux";
 import LoadingLayer from "./UI/LoadingLayer";
 import api from "./utils/axiosConfig";
 import Home from "./components/pages/home/Home";
 import NotFound from "./components/pages/404/NotFound";
+import { RootState } from "@store/index";
 
 const preventCurrentApiCallPaths = ["/register"];
 
-function App() {
+const App = (): React.ReactElement => {
   const reduxDispatch = useDispatch();
-  const loadingState = useSelector((state) => state.loading.open);
+  const loadingState = useSelector((state: RootState) => state.loading.open);
   const location = useLocation();
 
   const fetchCurrentUser = useCallback(async () => {
@@ -53,7 +54,7 @@ function App() {
       <Suspense fallback={<div>페이지를 불러오는 중.....</div>}>
         <Navigation />
         <Routes>
-          <Route path="/" exact element={<Home />} />
+          <Route path="/" element={<Home />} />
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<RegisterForm />} />
           <Route path="/users/:userId" element={<Portfolio />} />
@@ -63,6 +64,6 @@ function App() {
       </Suspense>
     </>
   );
-}
+};
 
 export default App;

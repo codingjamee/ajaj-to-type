@@ -1,9 +1,9 @@
 import React, { useContext, useState } from "react";
 import { Button, Form, Card, Col, Row } from "react-bootstrap";
 import { PortfolioOwnerDataContext } from "../Portfolio";
-import api from "../../../../utils/axiosConfig";
+import api from "@utils/axiosConfig";
 
-import defaultImg from "../../../common/header/logo0.png";
+import defaultImg from "@assets/logo0.png";
 
 function UserEditForm({ user, setIsEditing, setUser }) {
   const [image, setImage] = useState("");

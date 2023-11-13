@@ -1,7 +1,6 @@
 import { ErrorBoundary } from "react-error-boundary";
-import LoginForm from "./LoginForm";
-import img from "../../../components/common/header/logo0.png";
-import ButtonCommon from "../../common/ButtonCommon";
+import img from "@assets/logo0.png";
+import ButtonCommon from "@components/common/ButtonCommon";
 import LoginFormR from "./LoginFormR";
 
 const BtnSetting = {
