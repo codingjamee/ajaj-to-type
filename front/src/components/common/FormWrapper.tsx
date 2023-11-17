@@ -5,12 +5,34 @@ import { useMemo } from "react";
 
 //form button 상세설정 어레이
 
+export type OptionArrType = {
+  name: string;
+  text: string;
+};
+
+type FormListType = {
+  controlId: string;
+  name: string;
+  select: boolean;
+  customClassName: string;
+  label: string;
+  optionValue: string;
+  optionArr: OptionArrType[];
+};
+
+type FormWrapperProps = {
+  formList: FormListType[];
+  onSubmitHandler: (value: unknown) => void;
+  setAddForm: React.Dispatch<React.SetStateAction<FormListType[]>>;
+  isEditable: boolean;
+};
+
 const FormWrapper = ({
   formList = [],
   onSubmitHandler,
   setAddForm,
   isEditable,
-}) => {
+}: FormWrapperProps) => {
   const btnSet = useMemo(
     () => [
       {

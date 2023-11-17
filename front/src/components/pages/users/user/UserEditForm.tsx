@@ -1,36 +1,44 @@
-import React, { useContext, useState } from "react";
+import React, { ChangeEvent, useContext, useState } from "react";
 import { Button, Form, Card, Col, Row } from "react-bootstrap";
 import { PortfolioOwnerDataContext } from "../Portfolio";
 import api from "@utils/axiosConfig";
 
 import defaultImg from "@assets/logo0.png";
+import { UserCardPropsType } from "./UserCard";
+import { userInfoType } from "@store/userLogin";
 
-function UserEditForm({ user, setIsEditing, setUser }) {
-  const [image, setImage] = useState("");
+interface UserEditForm extends UserCardPropsType {
+  setUser: React.Dispatch<React.SetStateAction<userInfoType[]>>;
+  setIsEditing: React.Dispatch<React.SetStateAction<boolean>>;
+}
+
+function UserEditForm({ user, setIsEditing, setUser }: UserEditForm) {
+  const [image, setImage] = useState<File | null>(null);
   const [imageBase, setImageBase] = useState(defaultImg);
   const [name, setName] = useState(user.name);
   const [email, setEmail] = useState(user.email);
   const [description, setDescription] = useState(user.description);
   const portfolioOwnerData = useContext(PortfolioOwnerDataContext);
 
-  const onAddImage = (e) => {
-    setImage(e.target.files);
+  const onAddImage = (e: ChangeEvent<HTMLInputElement>) => {
+    const selectedFile = e.currentTarget.files?.[0] || null;
+    setImage(selectedFile);
 
     // setImageBase([]);
     let reader = new FileReader();
-    reader.readAsDataURL(e.target.files[0]);
+    if (selectedFile) reader.readAsDataURL(selectedFile);
     reader.onloadend = () => {
       const base64 = reader.result;
       if (base64) {
         const base64Str = base64.toString();
         setImageBase([base64Str]);
-        setImage(e.target.files[0]);
+        setImage(selectedFile);
       }
     };
   };
 
   //제출버튼 클릭시 patch메서드 실행
-  const onSubmitHandler = async (e) => {
+  const onSubmitHandler = async (e: ChangeEvent<HTMLInputElement>) => {
     e.preventDefault();
 
     if (!image) {
@@ -46,7 +54,7 @@ function UserEditForm({ user, setIsEditing, setUser }) {
 
     try {
       const res = await api.patch(
-        `users/${portfolioOwnerData.id}`,
+        `users/${portfolioOwnerData?._id}`,
         userProfileData
       );
 

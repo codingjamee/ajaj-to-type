@@ -1,7 +1,7 @@
 import styles from "./LoadingLayer.module.css";
 import { useDispatch } from "react-redux";
-import { loadingActions } from "../store/loading.js";
-import ButtonCommon from "../components/common/ButtonCommon";
+import { loadingActions } from "@store/loading";
+import ButtonCommon from "@components/common/ButtonCommon";
 import LoadingIndicator from "./LoadingIndicator";
 import React, { useEffect, useRef } from "react";
 

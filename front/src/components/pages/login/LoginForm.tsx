@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, FormEvent } from "react";
 import { useNavigate } from "react-router-dom";
 import { Container, Col, Row, Form, Button } from "react-bootstrap";
 import { validateEmail, validatePassword } from "@utils/validate";
@@ -6,6 +6,7 @@ import { useMemo } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { userLoginActions } from "@store/userLogin";
 import useApi from "@hooks/useApi";
+import { RootState } from "@store/index";
 
 function LoginForm() {
   const navigate = useNavigate();
@@ -13,7 +14,7 @@ function LoginForm() {
   const [passwordState, setPassword] = useState("");
   const dispatch = useDispatch();
   // const [isFirst, setIsFirst] = useState(true);
-  const userState = useSelector((state) => state.userLogin);
+  const userState = useSelector((state: RootState) => state.userLogin);
   const { result, trigger } = useApi({
     method: "get",
     path: "user/current",
@@ -31,15 +32,15 @@ function LoginForm() {
   );
 
   useEffect(() => {
-    if (!userState?.userInfo?.id) {
+    if (!userState?.userInfo?._id) {
       navigate("/login", { replace: true });
       return;
-    } else if (userState?.userInfo?.id) {
+    } else if (userState?.userInfo?._id) {
       navigate("/", { replace: true });
     }
-  }, [userState?.userInfo?.id, navigate]);
+  }, [userState?.userInfo?._id, navigate]);
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const loginData = {
       email: emailState,

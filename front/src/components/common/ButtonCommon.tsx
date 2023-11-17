@@ -3,6 +3,7 @@ import React, {
   useRef,
   MouseEvent,
   ForwardedRef,
+  ComponentPropsWithoutRef,
 } from "react";
 import { Button } from "react-bootstrap";
 
@@ -12,28 +13,30 @@ export type ButtonCommonType = {
 
 export type ButtonProps = {
   variant: string;
-  type?: "submit" | "reset" | "button" | undefined;
-  className?: string | undefined;
-  onClickHandler: (event: MouseEvent<HTMLButtonElement>) => void;
-  size?: "sm" | "lg" | undefined;
   text: string;
-};
+  onClickHandler?: (event: MouseEvent<HTMLButtonElement>) => void;
+  className?: string | undefined;
+  type?: "submit" | "reset" | "button" | undefined;
+  size?: "sm" | "lg" | undefined;
+} & ComponentPropsWithoutRef<"button">;
 
 const ButtonCommon = React.forwardRef<ButtonCommonType, ButtonProps>(
-  (props, ref) => {
-    const {
+  (
+    {
       variant,
-      type = undefined,
+      type,
       className,
       onClickHandler,
-      size = undefined,
-      text = "",
-    } = props;
-
+      size,
+      text,
+      ...otherProps
+    }: ButtonProps,
+    ref
+  ) => {
     const buttonRef = useRef<HTMLButtonElement | null>(null);
 
     useImperativeHandle(
-      ref as ForwardedRef<ButtonCommonType>,
+      ref,
       () => {
         return {
           focus: () => {
@@ -52,6 +55,7 @@ const ButtonCommon = React.forwardRef<ButtonCommonType, ButtonProps>(
         onClick={onClickHandler}
         size={size}
         ref={buttonRef}
+        {...otherProps}
       >
         {text}
       </Button>

@@ -1,6 +1,6 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import { Container, Col, Row, Form, Button, Card } from "react-bootstrap";
+import { Col, Row, Form, Button, Card } from "react-bootstrap";
 import { validateEmail, validatePassword } from "@utils/validate";
 import { useMemo } from "react";
 import { useDispatch, useSelector } from "react-redux";

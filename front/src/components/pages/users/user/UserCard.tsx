@@ -1,8 +1,22 @@
 import { useNavigate } from "react-router-dom";
 import { Card, Row, Button, Col } from "react-bootstrap";
 import defaultImg from "@assets/logo0.png";
+import { userInfoType } from "@store/userLogin";
 
-function UserCard({ user, setIsEditing, isEditable, isNetwork }) {
+export interface UserCardPropsType {
+  user: userInfoType;
+  setIsEditing: React.Dispatch<React.SetStateAction<boolean>>;
+  isEditable?: boolean;
+  isNetwork?: boolean;
+  setUser?: React.Dispatch<React.SetStateAction<userInfoType[]>>;
+}
+
+function UserCard({
+  user,
+  setIsEditing,
+  isEditable,
+  isNetwork,
+}: UserCardPropsType) {
   const navigate = useNavigate();
   return (
     <Card className="mb-2 ms-3 mr-5" border="warning">

@@ -1,4 +1,19 @@
 import { Form, Image, Card } from "react-bootstrap";
+import { OptionArrType } from "./FormWrapper";
+
+type FormCommonProps = {
+  controlId: string;
+  select: boolean;
+  label: string;
+  placeholder: string;
+  type: string;
+  changeHandler: (value: unknown) => void;
+  value?: string;
+  name: string;
+  customClassName?: string;
+  optionValue: string;
+  optionArr: OptionArrType[];
+};
 
 const FormCommon = ({
   controlId,
@@ -12,7 +27,7 @@ const FormCommon = ({
   customClassName,
   optionValue = "",
   optionArr = [],
-}) => {
+}: FormCommonProps) => {
   return (
     <Form.Group
       controlId={controlId}

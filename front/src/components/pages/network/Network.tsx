@@ -5,25 +5,34 @@ import api from "@utils/axiosConfig";
 import { useSelector } from "react-redux";
 import NetworkPage from "./NetworkPage";
 import PagiNation from "./PagiNation";
+import { RootState } from "@store/index";
+import { userInfoType } from "@store/userLogin";
+
+export type usersReturnType = {
+  data: {
+    users: userInfoType[];
+    totalPage: number;
+  };
+};
 
 function Network() {
   const navigate = useNavigate();
-  const userState = useSelector((state) => state.userLogin);
+  const userState = useSelector((state: RootState) => state.userLogin);
   // useState 훅을 통해 users 상태를 생성함.
-  const [users, setUsers] = useState([]);
+  const [users, setUsers] = useState<userInfoType[]>([]);
   const [pages, setPages] = useState(0);
 
   useEffect(() => {
     // 만약 전역 상태의 user가 null이라면, 로그인 페이지로 이동함.
-    if (!userState.userInfo.id) {
+    if (!userState.userInfo._id) {
       navigate("/login");
       return;
     }
     api.get("userlist").then((res) => {
       setPages(res.data.totalPage);
-      return setUsers(res.data?.users);
+      return res.data && setUsers(res.data?.users);
     });
-  }, [userState.userInfo?.id, navigate]);
+  }, [userState.userInfo?._id, navigate]);
 
   return (
     <Container

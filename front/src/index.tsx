@@ -7,17 +7,24 @@ import store from "./store";
 import { Provider } from "react-redux";
 import { BrowserRouter } from "react-router-dom";
 import { ErrorBoundary } from "react-error-boundary";
-import ButtonCommon from "./components/common/ButtonCommon";
-import img from "./assets/logo0.png";
+import ButtonCommon from "@components/common/ButtonCommon";
+import img from "@assets/logo0.png";
+import { ButtonProps } from "@components/common/ButtonCommon";
 
-const BtnSetting = {
+export interface ErrorFallbackProps {
+  resetErrorBoundary: () => void;
+}
+
+const BtnSetting: ButtonProps = {
   variant: "primary",
+  text: "다시시도!",
   type: "submit",
   className: "me-3",
-  text: "다시시도!",
 };
 
-const ErrorFallback = ({ resetErrorBoundary }) => {
+const ErrorFallback: React.FC<ErrorFallbackProps> = ({
+  resetErrorBoundary,
+}) => {
   return (
     <div>
       <h1>

@@ -5,11 +5,12 @@ import ButtonCommon from "@components/common/ButtonCommon";
 import { useNavigate } from "react-router-dom";
 import defaultImg from "@assets/logo0.png";
 import { useSelector } from "react-redux";
+import { RootState } from "@store/index";
 
 const Home = () => {
-  const userState = useSelector((state) => state.userLogin);
+  const userState = useSelector((state: RootState) => state.userLogin);
   const navigate = useNavigate();
-  const btnRef = useRef(null);
+  const btnRef = useRef<HTMLButtonElement>(null);
   const onClick = () => {
     navigate(`/users/${userState.userInfo?.id}`);
   };
@@ -19,7 +20,7 @@ const Home = () => {
       return;
     }
 
-    btnRef.current.focus();
+    btnRef.current?.focus();
   }, [userState.userInfo?.id]);
   return (
     <Card

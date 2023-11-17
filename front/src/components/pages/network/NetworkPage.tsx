@@ -4,14 +4,21 @@ import { Container, Row } from "react-bootstrap";
 import UserCard from "../users/user/UserCard";
 import api from "@utils/axiosConfig";
 import { useSelector } from "react-redux";
+import { RootState } from "@store/index";
+import { userInfoType } from "@store/userLogin";
 
-const NetworkPage = ({ users, setUsers }) => {
+type NetworkPageProps = {
+  users: userInfoType[];
+  setUsers: React.Dispatch<React.SetStateAction<userInfoType[]>>;
+};
+
+const NetworkPage = ({ users, setUsers }: NetworkPageProps) => {
   const navigate = useNavigate();
-  const userState = useSelector((state) => state.userLogin);
+  const userState = useSelector((state: RootState) => state.userLogin);
   const location = useLocation();
 
   useEffect(() => {
-    if (!userState.userInfo.id) {
+    if (!userState.userInfo._id) {
       navigate("/login");
       return;
     }
@@ -19,7 +26,7 @@ const NetworkPage = ({ users, setUsers }) => {
     api
       .get("/userlist" + location.search)
       .then((res) => setUsers(res.data.users));
-  }, [userState.userInfo?.id, navigate, location.search]);
+  }, [userState.userInfo?._id, navigate, location.search]);
 
   return (
     <Container fluid style={{ textAlign: "center", marginTop: "50px" }}>

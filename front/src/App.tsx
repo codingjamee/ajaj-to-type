@@ -1,18 +1,18 @@
 import React, { useEffect, useCallback, Suspense } from "react";
 import { Routes, Route, useLocation } from "react-router-dom";
 
-import Navigation from "./components/common/header/Navigation";
-import Login from "./components/pages/login/Login";
-import Network from "./components/pages/network/Network";
-import RegisterForm from "./components/pages/register/RegisterForm";
-import Portfolio from "./components/pages/users/Portfolio";
-import { loadingActions } from "./store/loading.jsx";
-import { userLoginActions } from "./store/userLogin";
+import Navigation from "@components/common/header/Navigation";
+import Login from "@components/pages/login/Login";
+import Network from "@components/pages/network/Network";
+import RegisterForm from "@components/pages/register/RegisterForm";
+import Portfolio from "@components/pages/users/Portfolio";
+import { loadingActions } from "@store/loading";
+import { userLoginActions } from "@store/userLogin";
 import { useDispatch, useSelector } from "react-redux";
-import LoadingLayer from "./UI/LoadingLayer";
-import api from "./utils/axiosConfig";
-import Home from "./components/pages/home/Home";
-import NotFound from "./components/pages/404/NotFound";
+import LoadingLayer from "@UI/LoadingLayer";
+import api from "@utils/axiosConfig";
+import Home from "@components/pages/home/Home";
+import NotFound from "@components/pages/404/NotFound";
 import { RootState } from "@store/index";
 
 const preventCurrentApiCallPaths = ["/register"];

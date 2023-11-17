@@ -1,3 +1,4 @@
+import { usersReturnType } from "@components/pages/network/Network";
 import axios from "axios";
 
 const config = {
@@ -7,18 +8,20 @@ const config = {
   withCredentials: true,
 };
 
+export type ApiMethods = "get" | "post" | "put" | "delete";
+
 export const api = axios.create(config); // 인스턴스
 
 // [Client] ------[ Interceptor ] -----> [Server]
 api.interceptors.request.use(
   (req) => {
     //요청 data가 formData일때
-    if (req.data && req.data instanceof FormData) {
+    if (req.data && req.data instanceof FormData && req.headers) {
       console.log("form데이터를 보냅니다. ");
       req.headers["Content-Type"] = "multipart/form-data";
     }
     //요청 data가 Object일 때
-    else if (req.data && req.data instanceof Object) {
+    else if (req.data && req.data instanceof Object && req.headers) {
       console.log("object를 보냅니다");
       req.headers["Content-Type"] = "application/json";
     }
@@ -44,24 +47,24 @@ api.interceptors.response.use(
   }
 );
 
-const getFetcher = async (path, params) => {
+const getFetcher = async (path, params): Promise<usersReturnType[]> => {
   return await api.get(path, { params });
 };
-const postFetcher = async (path, body) => {
+const postFetcher = async (path, body): Promise<usersReturnType[]> => {
   return await api.post(path, body);
 };
-const patchFetcher = async (path, body) => {
+const patchFetcher = async (path, body): Promise<usersReturnType[]> => {
   return await api.put(path, body);
 };
-const putFetcher = async (path, body) => {
+const putFetcher = async (path, body): Promise<usersReturnType[]> => {
   return await api.put(path, body);
 };
-const deleteFetcher = async (path, params) => {
+const deleteFetcher = async (path, params): Promise<usersReturnType[]> => {
   return await api.delete(path, { params });
 };
 
 export const API_FETCHER = {
-  get: (...args) => getFetcher(...args),
+  get: (...args: any[]) => getFetcher(...args),
   post: (...args) => postFetcher(...args),
   put: (...args) => putFetcher(...args),
   patch: (...args) => patchFetcher(...args),

@@ -3,3 +3,8 @@ declare module "*module.css" {
   const css: CSSResult;
   export default css;
 }
+
+declare module "*.png" {
+  const value: any;
+  export default value;
+}

@@ -1,16 +1,19 @@
 import { ErrorBoundary } from "react-error-boundary";
 import img from "@assets/logo0.png";
-import ButtonCommon from "@components/common/ButtonCommon";
+import ButtonCommon, { ButtonProps } from "@components/common/ButtonCommon";
 import LoginFormR from "./LoginFormR";
+import { ErrorFallbackProps } from "index";
 
-const BtnSetting = {
+const BtnSetting: ButtonProps = {
   variant: "primary",
   type: "submit",
   className: "me-3",
   text: "로그인 다시하러가기",
 };
 
-const ErrorFallback = ({ resetErrorBoundary }) => {
+const ErrorFallback: React.FC<ErrorFallbackProps> = ({
+  resetErrorBoundary,
+}) => {
   return (
     <div>
       <h1>

@@ -1,5 +1,5 @@
-import React, { useContext, useState, useEffect, createContext } from "react";
-import { useLocation, useNavigate, useParams } from "react-router-dom";
+import { useState, useEffect, createContext } from "react";
+import { useNavigate, useParams } from "react-router-dom";
 import { Container, Col, Row } from "react-bootstrap";
 
 import User from "./user/User";
@@ -9,17 +9,23 @@ import Awards from "./award/Awards";
 import Projects from "./project/Projects";
 import api from "@utils/axiosConfig";
 import { useSelector } from "react-redux";
+import { RootState } from "@store/index";
+import { userInfoType } from "@store/userLogin";
 
-export const PortfolioOwnerDataContext = createContext({});
+export const PortfolioOwnerDataContext = createContext<
+  userInfoType | undefined
+>(undefined);
 
 function Portfolio() {
   const navigate = useNavigate();
   const params = useParams();
-  const [portfolioOwnerData, setPortfolioOwnerData] = useState({});
-  const userState = useSelector((state) => state.userLogin);
-  const isEditable = portfolioOwnerData?.id === userState?.userInfo?.id;
+  const [portfolioOwnerData, setPortfolioOwnerData] = useState<
+    userInfoType | undefined
+  >();
+  const userState = useSelector((state: RootState) => state.userLogin);
+  const isEditable = portfolioOwnerData?._id === userState?.userInfo?._id;
 
-  const fetchPortfolioOwner = async (ownerId) => {
+  const fetchPortfolioOwner = async (ownerId: string) => {
     try {
       const res = await api.get(`users/${ownerId}`);
       const ownerData = res.data;
@@ -31,17 +37,17 @@ function Portfolio() {
 
   useEffect(() => {
     //userState가 없는 경우
-    if (!userState?.userInfo?.id) {
+    if (!userState?.userInfo?._id) {
       return navigate("/login", { replace: true });
     }
 
     // 현재 URL "/users/:userId"
     if (params.userId) {
-      const ownerId = params.userId;
+      const ownerId: string = params.userId;
       fetchPortfolioOwner(ownerId);
     } else {
       // URL "/"
-      const ownerId = userState?.userInfo?.id;
+      const ownerId = userState?.userInfo?._id;
       fetchPortfolioOwner(ownerId);
     }
   }, [params]);
@@ -55,7 +61,7 @@ function Portfolio() {
             lg={3}
             xl={2}
             xxl={2}
-            style={{ textAlign: "center", overFlow: "hidden" }}
+            style={{ textAlign: "center", overflow: "hidden" }}
           >
             <User isEditable={isEditable} />
           </Col>

@@ -3,7 +3,7 @@ import UserEditForm from "./UserEditForm";
 import UserCard from "./UserCard";
 import { PortfolioOwnerDataContext } from "../Portfolio";
 
-function User({ isEditable }) {
+function User({ isEditable }: { isEditable: boolean }) {
   const [isEditing, setIsEditing] = useState(false);
   const portfolioOwnerData = useContext(PortfolioOwnerDataContext);
   const [user, setUser] = useState(portfolioOwnerData);
@@ -14,7 +14,7 @@ function User({ isEditable }) {
 
   return (
     <>
-      {isEditing ? (
+      {isEditing && user ? (
         <UserEditForm
           user={user}
           setIsEditing={setIsEditing}

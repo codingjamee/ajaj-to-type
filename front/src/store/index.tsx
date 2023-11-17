@@ -1,5 +1,5 @@
 import { configureStore } from "@reduxjs/toolkit";
-import loadingReducer from "./loading.jsx";
+import loadingReducer from "./loading";
 import locationReducer from "./location";
 import userLoginReducer from "./userLogin";
 
