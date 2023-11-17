@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 
-const PagiNation = ({ pages }) => {
+const PagiNation = ({ pages }: { pages: number }) => {
   return (
     <div
       style={{

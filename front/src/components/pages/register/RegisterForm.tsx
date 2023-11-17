@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { FormEvent, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Container, Col, Row, Form, Button } from "react-bootstrap";
 import api from "@utils/axiosConfig";
@@ -29,7 +29,7 @@ function RegisterForm() {
   const isFormValid =
     isEmailValid && isPasswordValid && isPasswordSame && isNameValid;
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
     try {

@@ -10,6 +10,7 @@ import { useSelector } from "react-redux";
 import LoadingLayer from "@UI/LoadingLayer";
 import useInput from "@hooks/useInput";
 import useApi from "@hooks/useApi";
+import { RootState } from "@store/index";
 
 const initialValue = {
   awardName: "",
@@ -18,14 +19,16 @@ const initialValue = {
   awardDate: "2023-01-01",
 };
 
+type AawrdsProps = {};
+
 const Awards = (props) => {
   const [addForm, setAddForm] = useState(false);
   const portfolioOwnerData = useContext(PortfolioOwnerDataContext);
   const [data, onChange, _, reset] = useInput(initialValue);
-  const userState = useSelector((state) => state.userLogin);
+  const userState = useSelector((state: RootState) => state.userLogin);
   const { result, loading, reqIdentifier, trigger } = useApi({
     method: "get",
-    path: `user/${portfolioOwnerData?.id}/awards`,
+    path: `user/${portfolioOwnerData?._id}/awards`,
     data: "",
     shouldInitFetch: false,
   });
@@ -58,7 +61,7 @@ const Awards = (props) => {
 
   //portfolioOwnerData를 가져오면 awards목록 가져오기
   useEffect(() => {
-    if (portfolioOwnerData.id) {
+    if (portfolioOwnerData._id) {
       trigger({
         method: "get",
         path: `user/${portfolioOwnerData.id}/awards`,

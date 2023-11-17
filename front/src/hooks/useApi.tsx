@@ -26,6 +26,7 @@ export type customResponseType = {
   awardId?: number;
   postId?: number;
   certificateId?: number;
+  projectId?: number;
   data: object;
 };
 

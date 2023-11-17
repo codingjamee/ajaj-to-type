@@ -1,7 +1,7 @@
 import { Form, Row, Col } from "react-bootstrap";
 import ButtonCommon from "./ButtonCommon";
 import FormCommon from "./FormCommon";
-import { useMemo } from "react";
+import { FormEvent, useMemo } from "react";
 
 //form button 상세설정 어레이
 
@@ -13,16 +13,16 @@ export type OptionArrType = {
 type FormListType = {
   controlId: string;
   name: string;
-  select: boolean;
+  select?: boolean;
   customClassName: string;
-  label: string;
-  optionValue: string;
-  optionArr: OptionArrType[];
+  label?: string;
+  optionValue?: string;
+  optionArr?: OptionArrType[];
 };
 
 type FormWrapperProps = {
   formList: FormListType[];
-  onSubmitHandler: (value: unknown) => void;
+  onSubmitHandler: (e: FormEvent<HTMLFormElement>) => Promise<void> | boolean;
   setAddForm: React.Dispatch<React.SetStateAction<FormListType[]>>;
   isEditable: boolean;
 };
@@ -48,7 +48,7 @@ const FormWrapper = ({
         className: "me-3",
         text: "취소",
         onClickHandler: () => {
-          setAddForm((prev) => !prev);
+          return setAddForm((prev) => !prev);
         },
       },
     ],

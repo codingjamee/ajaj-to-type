@@ -8,6 +8,7 @@ import { useSelector } from "react-redux";
 import useInput from "@hooks/useInput";
 import useApi from "@hooks/useApi";
 import LoadingLayer from "@UI/LoadingLayer";
+import { RootState } from "@store/index";
 
 const initialValue = {
   awardName: "",
@@ -18,7 +19,7 @@ const initialValue = {
 
 const Award = ({ isEditable, award = {}, setAwards }) => {
   const [editMode, setEditMode] = useState(false);
-  const userState = useSelector((state) => state.userLogin);
+  const userState = useSelector((state: RootState) => state.userLogin);
   const [data, onChange] = useInput(award || initialValue);
   const { awardName, awardDetail, awardOrganization, awardDate } = data;
   const { result, loading, trigger, reqIdentifier } = useApi({

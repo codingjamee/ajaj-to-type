@@ -1,4 +1,4 @@
-import React, { ChangeEvent, useContext, useState } from "react";
+import React, { ChangeEvent, FormEvent, useContext, useState } from "react";
 import { Button, Form, Card, Col, Row } from "react-bootstrap";
 import { PortfolioOwnerDataContext } from "../Portfolio";
 import api from "@utils/axiosConfig";
@@ -38,7 +38,7 @@ function UserEditForm({ user, setIsEditing, setUser }: UserEditForm) {
   };
 
   //제출버튼 클릭시 patch메서드 실행
-  const onSubmitHandler = async (e: ChangeEvent<HTMLInputElement>) => {
+  const onSubmitHandler = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
     if (!image) {
@@ -99,7 +99,10 @@ function UserEditForm({ user, setIsEditing, setUser }: UserEditForm) {
         </Card.Subtitle>
         <Form onSubmit={onSubmitHandler}>
           <Form.Group controlId="useEditPhoto" className="mb-3">
-            <Form.Control type="file" onChange={(e) => onAddImage(e)} />
+            <Form.Control
+              type="file"
+              onChange={(e: ChangeEvent<HTMLInputElement>) => onAddImage(e)}
+            />
           </Form.Group>
           <Form.Group controlId="useEditName" className="mb-3">
             <Form.Control

@@ -1,4 +1,11 @@
-import React, { useCallback, useContext, useEffect, useState } from "react";
+import React, {
+  ChangeEvent,
+  FormEvent,
+  useCallback,
+  useContext,
+  useEffect,
+  useState,
+} from "react";
 import { Card } from "react-bootstrap";
 import ButtonCommon from "@components/common/ButtonCommon";
 import FormWrapper from "@components/common/FormWrapper";
@@ -10,8 +17,27 @@ import { useSelector } from "react-redux";
 import useApi from "@hooks/useApi";
 import LoadingLayer from "@UI/LoadingLayer";
 import useInput from "@hooks/useInput";
+import { RootState } from "@store/index";
 
-const initialValue = {
+type projectInitialValue = {
+  projectName: string;
+  projectDetail: string;
+  projectImgFile: object | null;
+  imgBase64: null;
+  projectStartDate: string;
+  projectEndDate: string;
+};
+
+interface State {
+  userId: number;
+  projectName: string;
+  projectDetail: string;
+  projectImgUrl: string;
+  projectStartDate: string;
+  projectEndDate: string;
+}
+
+const initialValue: projectInitialValue = {
   projectName: "",
   projectDetail: "",
   projectImgFile: {},
@@ -19,21 +45,20 @@ const initialValue = {
   projectStartDate: "2023-01-01",
   projectEndDate: "2023-01-01",
 };
-const Projects = (props) => {
+const Projects = ({ isEditable }: { isEditable: boolean }) => {
   const [addForm, setAddForm] = useState(false);
-  const [projects, setProjects] = useState([]);
+  const [projects, setProjects] = useState<State[] | null>([]);
 
   const [imgBase64, setImgBase64] = useState(null);
   const [projectImgFile, setProjectImgFile] = useState({});
   const [data, onChange, _, reset, onChangeFile] = useInput(initialValue);
   const { projectName, projectDetail, projectStartDate, projectEndDate } = data;
 
-  const userState = useSelector((state) => state.userLogin);
+  const userState = useSelector((state: RootState) => state.userLogin);
   const portfolioOwnerData = useContext(PortfolioOwnerDataContext);
-  const { isEditable } = props;
   const { result, loading, reqIdentifier, trigger } = useApi({
     method: "get",
-    path: `user/${userState?.userInfo?.id}/projects`,
+    path: `user/${userState?.userInfo?._id}/projects`,
     data: {},
     shouldInitFetch: false,
   });
@@ -43,15 +68,16 @@ const Projects = (props) => {
     () => [
       {
         value: projectName,
-        changeHandler: (e) => onChange(e),
+        changeHandler: (e: ChangeEvent<HTMLInputElement>) => onChange(e),
       },
       {
         value: projectDetail,
-        changeHandler: (e) => onChange(e),
+        changeHandler: (e: ChangeEvent<HTMLInputElement>) => onChange(e),
       },
       {
         value: imgBase64,
-        changeHandler: (e) => handleChangeFile(e),
+        changeHandler: (e: ChangeEvent<HTMLInputElement>) =>
+          handleChangeFile(e),
       },
       { value: projectStartDate, changeHandler: (e) => onChange(e) },
       { value: projectEndDate, changeHandler: (e) => onChange(e) },
@@ -74,25 +100,28 @@ const Projects = (props) => {
     [projectState]
   );
 
-  const handleChangeFile = (e) => {
+  const handleChangeFile = (e: ChangeEvent<HTMLInputElement>) => {
+    const selectedFile = e.currentTarget.files?.[0] || null;
+
     if (e.target?.files && e.target?.files[0]) {
       onChangeFile(e);
       setImgBase64([]);
     }
     let reader = new FileReader();
-    reader.readAsDataURL(e.target.files[0]);
+
+    if (selectedFile) reader.readAsDataURL(selectedFile);
     reader.onloadend = () => {
       const base64 = reader.result;
       if (base64) {
         const base64Sub = base64.toString();
-        setImgBase64(base64Sub);
-        setProjectImgFile(e.target.files[0]);
+        setImgBase64([base64Sub]);
+        setProjectImgFile(selectedFile);
       }
     };
   };
 
   //제출버튼 클릭시
-  const handleSubmit = async (e) => {
+  const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
     if (!projectImgFile) {
@@ -120,7 +149,7 @@ const Projects = (props) => {
 
   // 모든 project 목록 가져오기 서버와 통신
   useEffect(() => {
-    if (portfolioOwnerData.id) {
+    if (portfolioOwnerData?._id) {
       trigger({
         method: "get",
         path: `user/${portfolioOwnerData.id}/projects`,
@@ -182,7 +211,7 @@ const Projects = (props) => {
           <Card>
             {addForm && (
               <FormWrapper
-                {...props}
+                isEditable={isEditable}
                 formList={projectFormList}
                 onSubmitHandler={handleSubmit}
                 setAddForm={setAddForm}
