@@ -1,4 +1,4 @@
-import React, { Suspense, useContext, useEffect, useState } from "react";
+import { ChangeEvent, FormEvent, useContext, useEffect, useState } from "react";
 import { Card } from "react-bootstrap";
 import ButtonCommon from "@components/common/ButtonCommon";
 import FormWrapper from "@components/common/FormWrapper";
@@ -11,6 +11,7 @@ import LoadingLayer from "@UI/LoadingLayer";
 import useInput from "@hooks/useInput";
 import useApi from "@hooks/useApi";
 import { RootState } from "@store/index";
+import { mvpType } from "../../../../../typings/types";
 
 const initialValue = {
   awardName: "",
@@ -19,9 +20,11 @@ const initialValue = {
   awardDate: "2023-01-01",
 };
 
-type AawrdsProps = {};
+type AwardsProps = {
+  isEditable: boolean;
+};
 
-const Awards = (props) => {
+const Awards = (props: AwardsProps) => {
   const [addForm, setAddForm] = useState(false);
   const portfolioOwnerData = useContext(PortfolioOwnerDataContext);
   const [data, onChange, _, reset] = useInput(initialValue);
@@ -29,10 +32,10 @@ const Awards = (props) => {
   const { result, loading, reqIdentifier, trigger } = useApi({
     method: "get",
     path: `user/${portfolioOwnerData?._id}/awards`,
-    data: "",
+    data: {},
     shouldInitFetch: false,
   });
-  const [awards, setAwards] = useState([]);
+  const [awards, setAwards] = useState<mvpType[] | null>();
   const { awardName, awardDetail, awardOrganization, awardDate } = data;
 
   const { isEditable } = props;
@@ -40,13 +43,22 @@ const Awards = (props) => {
   //form 상세설정 어레이
   const awardState = useMemo(
     () => [
-      { value: awardName, changeHandler: (e) => onChange(e) },
-      { value: awardDetail, changeHandler: (e) => onChange(e) },
+      {
+        value: awardName,
+        changeHandler: (e: ChangeEvent<HTMLInputElement>) => onChange(e),
+      },
+      {
+        value: awardDetail,
+        changeHandler: (e: ChangeEvent<HTMLInputElement>) => onChange(e),
+      },
       {
         value: awardOrganization,
-        changeHandler: (e) => onChange(e),
+        changeHandler: (e: ChangeEvent<HTMLInputElement>) => onChange(e),
       },
-      { value: awardDate, changeHandler: (e) => onChange(e) },
+      {
+        value: awardDate,
+        changeHandler: (e: ChangeEvent<HTMLInputElement>) => onChange(e),
+      },
     ],
     [awardName, awardDetail, awardOrganization, awardDate, onChange]
   );
@@ -61,25 +73,25 @@ const Awards = (props) => {
 
   //portfolioOwnerData를 가져오면 awards목록 가져오기
   useEffect(() => {
-    if (portfolioOwnerData._id) {
+    if (portfolioOwnerData?._id) {
       trigger({
         method: "get",
-        path: `user/${portfolioOwnerData.id}/awards`,
+        path: `user/${portfolioOwnerData._id}/awards`,
         data: {},
         applyResult: true,
         isShowBoundary: true,
       });
     }
-  }, [portfolioOwnerData.id]);
+  }, [portfolioOwnerData?._id]);
 
   //제출버튼 클릭시
-  const handleSubmit = async (e) => {
+  const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     //post 서버와 통신
     const awardData = { awardName, awardDetail, awardOrganization, awardDate };
     trigger({
       method: "post",
-      path: `user/${userState.userInfo?.id}/award`,
+      path: `user/${userState.userInfo?._id}/award`,
       data: awardData,
       applyResult: true,
       isShowBoundary: true,

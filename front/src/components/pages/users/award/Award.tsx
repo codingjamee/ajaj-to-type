@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { ChangeEvent, FormEvent, useEffect, useState } from "react";
 import { Form, Card, Col } from "react-bootstrap";
 import FormWrapper from "@components/common/FormWrapper";
 import ButtonCommon from "@components/common/ButtonCommon";
@@ -9,6 +9,7 @@ import useInput from "@hooks/useInput";
 import useApi from "@hooks/useApi";
 import LoadingLayer from "@UI/LoadingLayer";
 import { RootState } from "@store/index";
+import { awardPropsType } from "../../../../../typings/types";
 
 const initialValue = {
   awardName: "",
@@ -17,14 +18,14 @@ const initialValue = {
   awardDate: "2023-01-01",
 };
 
-const Award = ({ isEditable, award = {}, setAwards }) => {
+const Award = ({ isEditable, award, setAwards }: awardPropsType) => {
   const [editMode, setEditMode] = useState(false);
   const userState = useSelector((state: RootState) => state.userLogin);
   const [data, onChange] = useInput(award || initialValue);
   const { awardName, awardDetail, awardOrganization, awardDate } = data;
   const { result, loading, trigger, reqIdentifier } = useApi({
     method: "put",
-    path: `user/${userState.userInfo?.id}/award/${award._id}`,
+    path: `user/${userState.userInfo?._id}/award/${award._id}`,
     data: {},
     shouldInitFetch: false,
   });
@@ -32,13 +33,22 @@ const Award = ({ isEditable, award = {}, setAwards }) => {
   //form 상세설정 어레이
   const awardState = useMemo(
     () => [
-      { value: awardName, changeHandler: (e) => onChange(e) },
-      { value: awardDetail, changeHandler: (e) => onChange(e) },
+      {
+        value: awardName,
+        changeHandler: (e: ChangeEvent<HTMLInputElement>) => onChange(e),
+      },
+      {
+        value: awardDetail,
+        changeHandler: (e: ChangeEvent<HTMLInputElement>) => onChange(e),
+      },
       {
         value: awardOrganization,
-        changeHandler: (e) => onChange(e),
+        changeHandler: (e: ChangeEvent<HTMLInputElement>) => onChange(e),
       },
-      { value: awardDate, changeHandler: (e) => onChange(e) },
+      {
+        value: awardDate,
+        changeHandler: (e: ChangeEvent<HTMLInputElement>) => onChange(e),
+      },
     ],
     [awardName, awardDetail, awardOrganization, awardDate, onChange]
   );
@@ -52,7 +62,7 @@ const Award = ({ isEditable, award = {}, setAwards }) => {
   );
 
   //수정해서 onSubmitHandler
-  const onSubmitHandler = async (e) => {
+  const onSubmitHandler = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
     const updatedAwardData = {};
@@ -60,7 +70,7 @@ const Award = ({ isEditable, award = {}, setAwards }) => {
     //put 서버와 통신
     trigger({
       method: "put",
-      path: `user/${userState?.userInfo?.id}/award/${award._id}`,
+      path: `user/${userState?.userInfo?._id}/award/${award._id}`,
       data: updatedAwardData,
       applyResult: true,
       isShowBoundary: true,
@@ -71,7 +81,7 @@ const Award = ({ isEditable, award = {}, setAwards }) => {
   const onClickDel = async (awardId) => {
     trigger({
       method: "delete",
-      path: `user/${userState.userInfo?.id}/award/${awardId}`,
+      path: `user/${userState.userInfo?._id}/award/${awardId}`,
       data: "",
       applyResult: true,
       isShowBoundary: true,

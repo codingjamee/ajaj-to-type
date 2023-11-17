@@ -1,17 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
-
-export interface userInfoType {
-  _id: string;
-  email: string;
-  name: string;
-  description: string;
-  userImgUrl?: string;
-  message: string;
-}
-
-interface LoginState {
-  userInfo: userInfoType;
-}
+import { LoginState } from "../../typings/types";
 
 const initialState = { userInfo: {} } as LoginState;
 

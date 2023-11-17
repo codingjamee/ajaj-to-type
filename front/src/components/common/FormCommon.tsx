@@ -1,19 +1,6 @@
 import { Form, Image, Card } from "react-bootstrap";
-import { OptionArrType } from "./FormWrapper";
-
-type FormCommonProps = {
-  controlId: string;
-  select: boolean;
-  label: string;
-  placeholder: string;
-  type: string;
-  changeHandler: (value: unknown) => void;
-  value?: string;
-  name: string;
-  customClassName?: string;
-  optionValue: string;
-  optionArr: OptionArrType[];
-};
+import { FormCommonProps } from "../../../typings/types";
+import { ChangeEvent } from "react";
 
 const FormCommon = ({
   controlId,
@@ -40,7 +27,7 @@ const FormCommon = ({
         <Form.Control
           type={type}
           placeholder={placeholder}
-          onChange={(e) => changeHandler(e)}
+          onChange={(e: ChangeEvent<HTMLInputElement>) => changeHandler(e)}
           value={value}
           name={name}
         />

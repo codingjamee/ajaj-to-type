@@ -2,7 +2,6 @@ import React, {
   useImperativeHandle,
   useRef,
   MouseEvent,
-  ForwardedRef,
   ComponentPropsWithoutRef,
 } from "react";
 import { Button } from "react-bootstrap";
@@ -13,7 +12,7 @@ export type ButtonCommonType = {
 
 export type ButtonProps = {
   variant: string;
-  text: string;
+  text?: string;
   onClickHandler?: (event: MouseEvent<HTMLButtonElement>) => void;
   className?: string | undefined;
   type?: "submit" | "reset" | "button" | undefined;

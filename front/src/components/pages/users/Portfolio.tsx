@@ -10,7 +10,7 @@ import Projects from "./project/Projects";
 import api from "@utils/axiosConfig";
 import { useSelector } from "react-redux";
 import { RootState } from "@store/index";
-import { userInfoType } from "@store/userLogin";
+import { userInfoType } from "../../../../typings/types";
 
 export const PortfolioOwnerDataContext = createContext<
   userInfoType | undefined

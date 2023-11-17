@@ -1,7 +1,7 @@
 import { useNavigate } from "react-router-dom";
 import { Card, Row, Button, Col } from "react-bootstrap";
 import defaultImg from "@assets/logo0.png";
-import { userInfoType } from "@store/userLogin";
+import { userInfoType } from "../../../../../typings/types";
 
 export interface UserCardPropsType {
   user: userInfoType;

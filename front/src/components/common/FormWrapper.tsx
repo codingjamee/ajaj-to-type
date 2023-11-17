@@ -1,31 +1,10 @@
 import { Form, Row, Col } from "react-bootstrap";
 import ButtonCommon from "./ButtonCommon";
 import FormCommon from "./FormCommon";
-import { FormEvent, useMemo } from "react";
+import { useMemo } from "react";
+import { FormWrapperProps } from "../../../typings/types";
 
 //form button 상세설정 어레이
-
-export type OptionArrType = {
-  name: string;
-  text: string;
-};
-
-type FormListType = {
-  controlId: string;
-  name: string;
-  select?: boolean;
-  customClassName: string;
-  label?: string;
-  optionValue?: string;
-  optionArr?: OptionArrType[];
-};
-
-type FormWrapperProps = {
-  formList: FormListType[];
-  onSubmitHandler: (e: FormEvent<HTMLFormElement>) => Promise<void> | boolean;
-  setAddForm: React.Dispatch<React.SetStateAction<FormListType[]>>;
-  isEditable: boolean;
-};
 
 const FormWrapper = ({
   formList = [],

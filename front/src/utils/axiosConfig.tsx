@@ -1,5 +1,5 @@
-import { usersReturnType } from "@components/pages/network/Network";
 import axios from "axios";
+import { API_FETCHER, Body, usersReturnType } from "../../typings/types";
 
 const config = {
   baseURL: process.env.REACT_APP_API_BASE_URL + "/api",
@@ -47,24 +47,39 @@ api.interceptors.response.use(
   }
 );
 
-const getFetcher = async (path, params): Promise<usersReturnType[]> => {
+const getFetcher = async (
+  path: string,
+  params: string
+): Promise<usersReturnType[]> => {
   return await api.get(path, { params });
 };
-const postFetcher = async (path, body): Promise<usersReturnType[]> => {
+const postFetcher = async (
+  path: string,
+  body: Body
+): Promise<usersReturnType[]> => {
   return await api.post(path, body);
 };
-const patchFetcher = async (path, body): Promise<usersReturnType[]> => {
+const patchFetcher = async (
+  path: string,
+  body: Body
+): Promise<usersReturnType[]> => {
   return await api.put(path, body);
 };
-const putFetcher = async (path, body): Promise<usersReturnType[]> => {
+const putFetcher = async (
+  path: string,
+  body: Body
+): Promise<usersReturnType[]> => {
   return await api.put(path, body);
 };
-const deleteFetcher = async (path, params): Promise<usersReturnType[]> => {
+const deleteFetcher = async (
+  path: string,
+  params: string
+): Promise<usersReturnType[]> => {
   return await api.delete(path, { params });
 };
 
-export const API_FETCHER = {
-  get: (...args: any[]) => getFetcher(...args),
+export const API_FETCHER: API_FETCHER = {
+  get: (...args) => getFetcher(...args),
   post: (...args) => postFetcher(...args),
   put: (...args) => putFetcher(...args),
   patch: (...args) => patchFetcher(...args),

@@ -1,42 +1,12 @@
 import { useEffect, useState } from "react";
-import { API_FETCHER, ApiMethods } from "../utils/axiosConfig";
+import { API_FETCHER } from "../utils/axiosConfig";
 import { useErrorBoundary } from "react-error-boundary";
-import { AxiosError, AxiosResponse } from "axios";
-
-interface useApiProps {
-  method: ApiMethods;
-  path: string;
-  data: object;
-  shouldInitFetch: boolean;
-}
-
-interface triggerProps {
-  method: ApiMethods;
-  path: string;
-  data: object;
-  applyResult: boolean;
-  isShowBoundary: boolean;
-  shouldSetError: boolean;
-}
-
-export type customResponseType = {
-  message: string;
-  status: number;
-  eduId?: number;
-  awardId?: number;
-  postId?: number;
-  certificateId?: number;
-  projectId?: number;
-  data: object;
-};
-
-interface useApiReturnType {
-  result: customResponseType;
-  loading: boolean;
-  reqIdentifier: string;
-  trigger: (props: triggerProps) => void;
-  error?: any;
-}
+import { AxiosError } from "axios";
+import {
+  customResponseType,
+  useApiProps,
+  useApiReturnType,
+} from "../../typings/types";
 
 const useApi = ({
   method = "get",

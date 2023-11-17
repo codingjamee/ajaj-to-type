@@ -6,14 +6,7 @@ import { useSelector } from "react-redux";
 import NetworkPage from "./NetworkPage";
 import PagiNation from "./PagiNation";
 import { RootState } from "@store/index";
-import { userInfoType } from "@store/userLogin";
-
-export type usersReturnType = {
-  data: {
-    users: userInfoType[];
-    totalPage: number;
-  };
-};
+import { userInfoType } from "../../../../typings/types";
 
 function Network() {
   const navigate = useNavigate();

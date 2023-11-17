@@ -5,7 +5,7 @@ import api from "@utils/axiosConfig";
 
 import defaultImg from "@assets/logo0.png";
 import { UserCardPropsType } from "./UserCard";
-import { userInfoType } from "@store/userLogin";
+import { userInfoType } from "../../../../../typings/types";
 
 interface UserEditForm extends UserCardPropsType {
   setUser: React.Dispatch<React.SetStateAction<userInfoType[]>>;

@@ -1,7 +1,12 @@
 import { ChangeEvent, useCallback, useState } from "react";
+import { mvpType } from "../../typings/types";
 
-const useInput = (initialValue = null) => {
-  const [data, setData] = useState(initialValue);
+type initialValueType = {
+  [name: string]: string | File;
+};
+
+const useInput = (inputValue: initialValueType | mvpType) => {
+  const [data, setData] = useState(inputValue);
 
   const onChange = useCallback((e: ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
@@ -24,8 +29,8 @@ const useInput = (initialValue = null) => {
   }, []);
 
   const reset = useCallback(() => {
-    return setData(initialValue);
-  }, [initialValue]);
+    return setData(inputValue);
+  }, [inputValue]);
 
   return [data, onChange, onChangeSelect, reset, onChangeFile] as const;
 };
